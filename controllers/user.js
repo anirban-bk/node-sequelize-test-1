@@ -4,13 +4,9 @@ const { use } = require('../routes/routes/user');
 
 //db.userModel
 const userModel = require('../models/user')(db.sequelize, db.DataTypes);
+const roleModel = require('../models/role')(db.sequelize, db.DataTypes);
 
-userModel.listings = ()=>{
-    return new Promise(async (resolve, reject)=>{
-        let data = await userModel.findAll();
-        resolve(data);
-    })
-}
+
 
 const list = async (req, res)=>{
     //let result = await userModel.findAll({});
@@ -36,6 +32,18 @@ const list = async (req, res)=>{
 
     }); 
     res.status(200).json(result);
+}
+
+const userList = async (req, res)=>{
+    let result = await userModel.list();
+    res.status(200).json(result);
+    /* let result = await userModel.findAll({
+        attributes: ["id", "name", "email", "role_id"],
+        include: {
+            model: roleModel,
+            attributes: ["name"]
+        }
+    }); */
 }
 
 const listQueryResult = async (req, res)=>{
@@ -87,4 +95,4 @@ const addBulk = async (req, res)=>{
             ).then(async data=> await res.status(200).json(data), async error=> await res.status(400).send(error.errors)); 
 }
 
-module.exports = {list, listQueryResult, add, update, addBulk}
+module.exports = {list, listQueryResult, userList, add, update, addBulk}
