@@ -4,7 +4,7 @@ const { use } = require('../routes/routes/user');
 
 //db.userModel
 const userModel = require('../models/user')(db.sequelize, db.DataTypes);
-const roleModel = require('../models/role')(db.sequelize, db.DataTypes);
+//const roleModel = require('../models/role')(db.sequelize, db.DataTypes);
 
 
 
